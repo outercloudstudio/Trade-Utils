@@ -3,7 +3,9 @@
 	"package": "outercloud.tradeutils.mixin.client",
 	"compatibilityLevel": "JAVA_17",
 	"client": [
-		"ExampleClientMixin"
+		"MerchantScreenMixin",
+		"HandledScreenMixin",
+		"ScreenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
