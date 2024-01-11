@@ -7,7 +7,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.command.argument.ItemStackArgument;
 import net.minecraft.command.argument.ItemStackArgumentType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.VillagerEntity;
@@ -45,13 +44,15 @@ public class TradeUtils implements ModInitializer {
 
 																	if(!(entity instanceof VillagerEntity villager)) return 0;
 
-																	TradeOfferList tradeOfferList = new TradeOfferList();
+																	TradeOfferList tradeOfferList = villager.getOffers();
 
-																	TradeOffer tradeOffer = new TradeOffer(inItemStack, outItemStack, 1, 0, 0);
+																	TradeOffer tradeOffer = new TradeOffer(inItemStack, outItemStack, 999999999, 1, 0);
 
 																	tradeOfferList.add(tradeOffer);
 
 																	villager.setOffers(tradeOfferList);
+
+																	((VillagerMixinBridge) villager).enableCustomTrades();
 
 																	return 1;
 																})
@@ -59,6 +60,19 @@ public class TradeUtils implements ModInitializer {
 												)
 										)
 								)
+						)
+						.then(CommandManager.literal("clear")
+								.executes(context -> {
+									Entity entity = EntityArgumentType.getEntity(context, "entity");
+
+									if(!(entity instanceof VillagerEntity villager)) return 0;
+
+									villager.setOffers(new TradeOfferList());
+
+									((VillagerMixinBridge) villager).enableCustomTrades();
+
+									return 1;
+								})
 						)
 				)
 		);

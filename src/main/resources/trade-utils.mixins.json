@@ -3,7 +3,7 @@
 	"package": "outercloud.tradeutils.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"ExampleMixin"
+      "VillagerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
