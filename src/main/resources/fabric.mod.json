@@ -17,9 +17,6 @@
 	"entrypoints": {
 		"main": [
 			"outercloud.tradeutils.TradeUtils"
-		],
-		"client": [
-			"outercloud.tradeutils.TradeUtilsClient"
 		]
 	},
 	"mixins": [
